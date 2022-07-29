@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: employeeback
-          image: employeeback:0.0.1-SNAPSHOT
+          image: emplyeeback:0.0.1-SNAPSHOT
           ports:
             - containerPort: 8080
           env:   # Setting Environmental Variables
