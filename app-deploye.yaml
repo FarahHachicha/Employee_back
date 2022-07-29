@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employeeback
+spec:
+  selector:
+    matchLabels:
+      app: employeeback
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: employeeback
+    spec:
+      containers:
+        - name: employeeback
+          image: employeeback:0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8080
+          env:   # Setting Environmental Variables
+            - name: DB_HOST   # Setting Database host address
+              value: mysql
+            - name: DB_NAME  # Setting Database name
+              value: employeemanager
+            - name: DB_USERNAME  # Setting Database username
+              value: root
+            - name: DB_PASSWORD # Setting Database password
+              value: MySQL123!!
+# This seperator --- below is MANDATORY!!!
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employeeback-service
+spec:
+  ports:
+    - protocol: "TCP"
+      port: 8080    # Port inside the cluster
+      targetPort:   # Port exposed to the outside
+  selector:
+    app: employeeback
+  type: NodePort
